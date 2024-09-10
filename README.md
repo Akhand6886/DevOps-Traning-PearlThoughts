@@ -1,7 +1,7 @@
 # DevOps-Traning-PearlThoughts
 
 
-Prerequisites
+# Prerequisites
 Before you can install and use Medusa, you need the following tools installed on your machine:
 
 Node.js v16+
