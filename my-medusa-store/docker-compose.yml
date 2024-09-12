@@ -1,0 +1,37 @@
+
+version: "3.8"
+services:
+  medusa:
+    build: .
+    ports:
+      - 9001:9001
+    environment:
+      MEDUSA_ADMIN_CORS: "http://localhost:7001"
+      MEDUSA_STORE_CORS: "http://localhost:8000"
+      JWT_SECRET: "something"
+      COOKIE_SECRET: "something"
+      DATABASE_TYPE: "postgres"
+      DATABASE_URL: "postgres://postgres:123456789abc@host:5432/medusa-db-3sw7l"
+      REDIS_URL: "redis://localhost:6379"
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456789abc
+      POSTGRES_DB: medusa-db-3sw7l
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+
+volumes:
+  postgres-data:
